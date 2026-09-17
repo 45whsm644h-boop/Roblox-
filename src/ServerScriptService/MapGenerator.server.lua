@@ -232,11 +232,22 @@ end
 
 -- Kjøring ----------------------------------------------------------------------
 
+-- Fjerner malens standard "Baseplate"-del. Den ligger på nøyaktig samme
+-- høyde som vår egen bakke, noe som gir z-fighting (flimrende/glitchende
+-- gress) hvis begge får stå.
+local function removeDefaultBaseplate()
+	local baseplate = Workspace:FindFirstChild("Baseplate")
+	if baseplate and baseplate:IsA("BasePart") then
+		baseplate:Destroy()
+	end
+end
+
 local function generateMap()
 	local existing = Workspace:FindFirstChild(MAP_FOLDER_NAME)
 	if existing then
 		existing:Destroy()
 	end
+	removeDefaultBaseplate()
 
 	local mapFolder = Instance.new("Folder")
 	mapFolder.Name = MAP_FOLDER_NAME
