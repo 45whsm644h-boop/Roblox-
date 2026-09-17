@@ -249,4 +249,12 @@ local function generateMap()
 	setupAtmosphere()
 end
 
-generateMap()
+print("MapGenerator: scriptet kjører, bygger kartet...")
+
+local ok, errorMessage = pcall(generateMap)
+
+if ok then
+	print("MapGenerator: ferdig! Se Workspace.GeneratedMap i Explorer.")
+else
+	warn("MapGenerator feilet: " .. tostring(errorMessage))
+end
